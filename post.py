@@ -28,6 +28,7 @@ def post_comic():
 
 if __name__ == "__main__":
     for feed in feeds:
-        feed()
+        for comic in feed():
+            print(comic)
 
     post_comic()
