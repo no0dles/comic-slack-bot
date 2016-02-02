@@ -1,7 +1,8 @@
-from peewee import Database, Model, TextField, FixedCharField, BooleanField
-from settings import DATABASE
+from peewee import  Model, TextField, FixedCharField, BooleanField
+from playhouse.db_url import connect
+import os
 
-db = Database(DATABASE)
+db = connect(os.environ['DATABASE_URL'])
 
 
 class BaseModel(Model):
