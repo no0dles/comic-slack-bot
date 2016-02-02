@@ -3,6 +3,10 @@ from json import dumps
 from playhouse.postgres_ext import fn
 from settings import HOOK_URL
 from requests import post
+from comics import xkcd
+from comics import explosm
+
+feeds = [xkcd.get_feed, explosm.get_feed]
 
 
 def get_random_comic():
@@ -23,4 +27,7 @@ def post_comic():
         Comic.update(posted=True).where(Comic.id == comic.id).execute()
 
 if __name__ == "__main__":
+    for feed in feeds:
+        feed()
+
     post_comic()
