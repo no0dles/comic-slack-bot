@@ -16,7 +16,8 @@ def get_random_comic():
 def post_comic():
     for comic in get_random_comic():
         payload = {
-          "text": comic.title,
+          "title": comic.title,
+          "title_link": comic.url,
           "attachments": [{
               "image_url": comic.image_url
 
