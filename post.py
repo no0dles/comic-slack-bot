@@ -10,7 +10,7 @@ feeds = [xkcd.get_feed, explosm.get_feed]
 
 
 def get_random_comic():
-    return Comic.select().where(Comic.posted==False).order_by(fn.Random()).limit(1)
+    return Comic.select().where(Comic.posted == False).order_by(fn.Random()).limit(1)
 
 
 def post_comic():

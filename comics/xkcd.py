@@ -16,9 +16,12 @@ def get_feed():
         except Comic.DoesNotExist:
             imgs = pattern.findall(entry['summary'])
 
+            if len(imgs) == 0 or not imgs[0]:
+                continue
+
             yield Comic.create(
                 url=entry['id'],
                 title=entry['title'],
-                image_url=imgs[0] if len(imgs) > 0 else None,
+                image_url=imgs[0],
                 type='x'
             )
