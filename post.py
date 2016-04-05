@@ -16,8 +16,7 @@ def get_random_comic():
 def post_comic():
     for comic in get_random_comic():
         payload = {
-          "title": comic.title,
-          "title_link": comic.url,
+          "text": comic.title + " Link (" + comic.url + ")",
           "attachments": [{
               "image_url": comic.image_url
 
@@ -25,6 +24,7 @@ def post_comic():
         }
 
         post(HOOK_URL, data=dumps(payload))
+
         Comic.update(posted=True).where(Comic.id == comic.id).execute()
 
 if __name__ == "__main__":
