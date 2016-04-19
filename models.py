@@ -4,7 +4,7 @@ from playhouse.db_url import connect
 
 if DATABASE_URL:
     db = connect(DATABASE_URL)
-else
+else:
     db = PostgresqlDatabase(DATABASE['name'],
                             user=DATABASE['user'],
                             password=DATABASE['password'],
