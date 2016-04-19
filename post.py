@@ -1,12 +1,15 @@
 from models import Comic
-from json import dumps
 from playhouse.postgres_ext import fn
-from settings import HOOK_URL
-from requests import post
-from comics import xkcd
-from comics import explosm
+from comics.xkcd import XkcdComic
+from comics.explosm import ExplosmComic
+from comics.business_cat import BussinessCatComic
 
-feeds = [xkcd.get_feed, explosm.get_feed]
+
+xkcd = XkcdComic()
+explosm = ExplosmComic()
+business_cat = BussinessCatComic()
+
+comicManagers = [xkcd, explosm, business_cat]
 
 
 def get_random_comic():
@@ -14,22 +17,17 @@ def get_random_comic():
 
 
 def post_comic():
-    for comic in get_random_comic():
-        payload = {
-          "text": comic.title + " Link (" + comic.url + ")",
-          "attachments": [{
-              "image_url": comic.image_url
+    for random_comic in get_random_comic():
+        if random_comic.type == 'x':
+            xkcd.post(random_comic)
+        elif random_comic.type == 'c':
+            business_cat.post(random_comic)
+        elif random_comic.type == 'e':
+            explosm.post(random_comic)
 
-          }]
-        }
-
-        post(HOOK_URL, data=dumps(payload))
-
-        Comic.update(posted=True).where(Comic.id == comic.id).execute()
 
 if __name__ == "__main__":
-    for feed in feeds:
-        for comic in feed():
-            print(comic)
+    for comicManager in comicManagers:
+        comicManager.fetch()
 
     post_comic()

@@ -1,8 +1,11 @@
-from peewee import  Model, TextField, FixedCharField, BooleanField
-from playhouse.db_url import connect
-import os
+from peewee import Model, TextField, FixedCharField, BooleanField, PostgresqlDatabase
+from settings import DATABASE
 
-db = connect(os.environ['DATABASE_URL'])
+db = PostgresqlDatabase(DATABASE['name'],
+                        user=DATABASE['user'],
+                        password=DATABASE['password'],
+                        host=DATABASE['host'],
+                        port=DATABASE['port'])
 
 
 class BaseModel(Model):

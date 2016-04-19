@@ -5,7 +5,6 @@ if 'HEROKU' in os.environ:
     DEBUG = False
     url = urlparse(os.environ['DATABASE_URL'])
     DATABASE = {
-        'engine': 'peewee.PostgresqlDatabase',
         'name': url.path[1:],
         'user': url.username,
         'password': url.password,
@@ -15,7 +14,6 @@ if 'HEROKU' in os.environ:
 else:
     DEBUG = True
     DATABASE = {
-        'engine': 'peewee.PostgresqlDatabase',
         'name': 'comicbot',
         'user': 'postgres',
         'password': 'postgres',
