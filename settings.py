@@ -2,6 +2,7 @@ import os
 
 if 'DATABASE_URL' in os.environ:
     DATABASE_URL = os.environ['DATABASE_URL']
+    DATABASE = None
 else:
     DATABASE_URL = None
     DATABASE = {
