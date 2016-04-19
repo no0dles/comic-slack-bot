@@ -3,16 +3,17 @@ from urllib.parse import urlparse
 
 if 'HEROKU' in os.environ:
     DEBUG = False
-    url = urlparse(os.environ['DATABASE_URL'])
+    DATABASE_URL = urlparse(os.environ['DATABASE_URL'])
     DATABASE = {
-        'name': url.path[1:],
-        'user': url.username,
-        'password': url.password,
-        'host': url.hostname,
-        'port': url.port,
+        'name': DATABASE_URL.path[1:],
+        'user': DATABASE_URL.username,
+        'password': DATABASE_URL.password,
+        'host': DATABASE_URL.hostname,
+        'port': DATABASE_URL.port,
     }
 else:
     DEBUG = True
+    DATABASE_URL = None
     DATABASE = {
         'name': 'comicbot',
         'user': 'postgres',

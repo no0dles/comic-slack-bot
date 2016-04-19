@@ -1,11 +1,15 @@
 from peewee import Model, TextField, FixedCharField, BooleanField, PostgresqlDatabase
-from settings import DATABASE
+from settings import DATABASE, DATABASE_URL
+from playhouse.db_url import connect
 
-db = PostgresqlDatabase(DATABASE['name'],
-                        user=DATABASE['user'],
-                        password=DATABASE['password'],
-                        host=DATABASE['host'],
-                        port=DATABASE['port'])
+if DATABASE_URL:
+    db = connect(DATABASE_URL)
+else
+    db = PostgresqlDatabase(DATABASE['name'],
+                            user=DATABASE['user'],
+                            password=DATABASE['password'],
+                            host=DATABASE['host'],
+                            port=DATABASE['port'])
 
 
 class BaseModel(Model):
